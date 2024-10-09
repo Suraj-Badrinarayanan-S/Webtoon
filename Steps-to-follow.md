@@ -97,6 +97,20 @@ To automatically adjust the number of EC2 instances based on the load.
    - Go to **Auto Scaling Groups** and create a new group based on the launch template.
    - Set the minimum and maximum number of instances, and configure scaling policies based on CPU utilization (e.g., add instances when CPU > 75%).
 
+3. **Set Up SNS for Notifications**:
+   - Navigate to the **SNS** service in the AWS Management Console.
+   - Click **Create Topic** and choose **Standard** as the type.
+   - Name the topic (e.g., `CPU_Usage_Alerts`) and create it.
+   - Create a subscription to the topic:
+     - Choose the protocol (e.g., Email) and provide an endpoint (your email address).
+   - Confirm the subscription from your email.
+   - In the **Auto Scaling Group**, set the alarm to trigger when CPU usage exceeds 75%:
+     - Use CloudWatch to create an alarm:
+       - Go to **CloudWatch** > **Alarms** > **Create Alarm**.
+       - Select **Metric** for your Auto Scaling group, choose **CPU Utilization**, and set the threshold to 75%.
+       - Choose **Actions** and select the SNS topic you created to send notifications.
+       - Review and create the alarm.
+
 ## 5. Security Configuration
 ### Purpose
 To secure the web application.
